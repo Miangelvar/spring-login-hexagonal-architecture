@@ -1,5 +1,7 @@
 package org.unillanos.showcase.domain.model;
 
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,4 +21,5 @@ public class User{
     private String username;
     private String email;
     private String password;
+    // private Set<Role> roles;
 }

@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.unillanos.showcase.domain.model.User;
 import org.unillanos.showcase.infrastructure.persistence.jpa.entity.UserEntity;
 import org.unillanos.showcase.infrastructure.persistence.mapper.UserEntityMapper;
+import org.unillanos.showcase.infrastructure.persistence.mapper.UserEntityMapperImpl;
 
 
 @ExtendWith(SpringExtension.class)
@@ -20,8 +21,8 @@ public class EntityMapperIntegrationTests {
     @TestConfiguration
     static class EntityMapperIntegrationTestsConfig {
         @Bean
-        public UserEntityMapper userEntityMapper() {
-            return new UserEntityMapper(modelMapper());
+        public UserEntityMapper userEntityMapper(ModelMapper mapper) {
+            return new UserEntityMapperImpl(mapper);
         }
         @Bean
         public ModelMapper modelMapper() {
