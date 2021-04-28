@@ -20,7 +20,7 @@ public class DomainUserService implements UserService {
     public Either<String, User> save(User user) {
         Either<String, User> result;
         if (!userRepository.existsByEmail(user.getUsername()) && !userRepository.existsByUsername(user.getUsername()))
-            result = Either.right(userRepository.save(user)); 
+            result = Either.right(userRepository.save(user));
         else {
             String msg = COULD_NOT_SAVE_USER + user + " email or username are already registered";
             result = Either.left(msg);

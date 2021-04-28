@@ -1,4 +1,4 @@
-package org.unillanos.showcase.infrastructure.restcontroller;
+package org.unillanos.showcase.infrastructure.utils.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
