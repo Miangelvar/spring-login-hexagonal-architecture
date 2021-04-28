@@ -1,12 +1,12 @@
 package org.unillanos.showcase.application.repository;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.unillanos.showcase.domain.model.User;
 
 public interface UserRepository {
-    List<User> findAll();
+    Set<User> findAll();
     Optional<User> findById(Long id);
     Optional<User> findByUsername(String username);
     Optional<User> findByEmail(String email);

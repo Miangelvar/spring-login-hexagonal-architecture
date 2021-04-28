@@ -1,6 +1,7 @@
-package org.unillanos.showcase.infrastructure.rest.restcontroller;
+package org.unillanos.showcase.infrastructure.resources.rest;
 
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,40 +15,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.unillanos.showcase.domain.model.User;
-import org.unillanos.showcase.infrastructure.persistence.service.UserService;
-import org.unillanos.showcase.infrastructure.rest.dto.UserDto;
-import org.unillanos.showcase.infrastructure.rest.restcontroller.mapper.UserDtoMapper;
+import org.unillanos.showcase.application.service.implementation.DomainUserService;
+import org.unillanos.showcase.infrastructure.resources.dto.UserDto;
+import org.unillanos.showcase.infrastructure.resources.mapper.UserDtoMapper;
 
-import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
 @Slf4j
 @RestController
-@RequestMapping(("/users"))
+@RequestMapping(("api/users"))
 @RequiredArgsConstructor
 public class UserController {
 
     @Autowired
-    private final UserService userService;
+    private final DomainUserService userService;
 
     @Autowired
     private final UserDtoMapper userMapper;
     
     @PostMapping
     public ResponseEntity<UserDto> save(@Valid @RequestBody UserDto userDto, BindingResult result) {
-        return userService.save(userMapper.toDomain(userDto))
-        .map(user -> ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toDto(user)))
-        
-        .getOrElseGet(msg -> {
-            log.warn(msg);
+        if (!result.hasErrors())
+            return userService.save(userMapper.toDomain(userDto))
+            .map(user -> ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toDto(user)))
+            
+            .getOrElseGet(msg -> {
+                log.warn(msg);
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            });
+        else
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        });
-        
 
     }
 
@@ -63,9 +63,13 @@ public class UserController {
     
     
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<Set<UserDto>> findAll() {
         var users = userService.findAll();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(
+            users.stream()
+            .map(userMapper::toDto)
+            .collect(Collectors.toSet())
+            );
     }
     
 }

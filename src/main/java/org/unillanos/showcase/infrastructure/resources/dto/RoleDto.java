@@ -1,4 +1,6 @@
-package org.unillanos.showcase.infrastructure.rest.dto;
+package org.unillanos.showcase.infrastructure.resources.dto;
+
+import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
@@ -15,12 +17,11 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto{
+public class RoleDto implements Serializable {
     private Long id;
     @NotBlank
-    private String username;
+    private String name;
     @NotBlank
-    private String email;
-    @NotBlank
-    private String password;
+    private String description;
+
 }

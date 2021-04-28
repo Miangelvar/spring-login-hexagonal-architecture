@@ -1,12 +1,11 @@
 package org.unillanos.showcase.infrastructure.persistence.repository;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.unillanos.showcase.application.repository.UserRepository;
 import org.unillanos.showcase.domain.model.User;
 import org.unillanos.showcase.infrastructure.persistence.jpa.repository.SpringDataUserEntityJpaRepository;
@@ -48,11 +47,11 @@ public class SpringDataUserRepository implements UserRepository {
     }
 
     @Override
-    public List<User> findAll() {
+    public Set<User> findAll() {
         return userRepository.findAll()
         .stream()
         .map(userMapper::toDomain)
-        .collect(Collectors.toList());
+        .collect(Collectors.toSet());
     }
 
     @Override

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.unillanos.showcase.domain.model.User;
 import org.unillanos.showcase.infrastructure.persistence.jpa.entity.UserEntity;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

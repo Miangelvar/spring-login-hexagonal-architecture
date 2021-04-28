@@ -6,4 +6,8 @@ import io.vavr.control.Either;
 
 public interface FindUserUseCase {
     Either<String, User> findById(Long id);
+    Either<String, User> findByUsername(String username);
+    Either<String, User> findByEmail(String email);
+
+
 }

@@ -1,4 +1,4 @@
-package org.unillanos.showcase.application.service;
+package org.unillanos.showcase.application.service.save;
 
 import org.unillanos.showcase.domain.model.User;
 
