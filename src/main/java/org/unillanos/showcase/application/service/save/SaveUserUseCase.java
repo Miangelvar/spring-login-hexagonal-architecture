@@ -1,9 +1,11 @@
 package org.unillanos.showcase.application.service.save;
 
 import org.unillanos.showcase.domain.model.User;
-
-import io.vavr.control.Either;
+import org.unillanos.showcase.infrastructure.resources.dto.RegistrationForm;
+import org.unillanos.showcase.infrastructure.resources.dto.UserDto;
 
 public interface SaveUserUseCase {
-     Either<String, User> save(User user);  
+     User save(UserDto userDto);  
+     User save(RegistrationForm userForm);
+
 }

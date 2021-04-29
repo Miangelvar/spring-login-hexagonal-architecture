@@ -1,5 +1,6 @@
 package org.unillanos.showcase.infrastructure.persistence.repository;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,13 @@ public class SpringDataRoleRepository implements RoleRepository {
     @Override
     public boolean existsByName(String name) {
         return roleRepository.existsByName(name);
+    }
+
+    @Override
+    public Optional<Role> findByName(String name) {
+        return roleRepository.findByName(name)
+        .map(roleEntity -> Optional.of(mapper.map(roleEntity, Role.class)))
+        .orElseGet(Optional::empty);
     }
     
 }

@@ -2,30 +2,31 @@ package org.unillanos.showcase.application.service.implementation;
 
 import java.util.Set;
 
+import org.modelmapper.ModelMapper;
+import org.unillanos.showcase.application.exception.UserAlreadyExistsException;
+import org.unillanos.showcase.application.exception.UserNotFoundException;
 import org.unillanos.showcase.application.repository.UserRepository;
 import org.unillanos.showcase.application.service.service.UserService;
 import org.unillanos.showcase.domain.model.User;
+import org.unillanos.showcase.infrastructure.resources.dto.RegistrationForm;
+import org.unillanos.showcase.infrastructure.resources.dto.UserDto;
 
-import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class DomainUserService implements UserService {
     private final UserRepository userRepository;
+    private final ModelMapper mapper;
     
-    private static final String COULD_NOT_SAVE_USER = "Could not save user";
-    private static final String USER_NOT_FOUND = "User not found";
+    private static final String USER_ALREADY_EXISTS = "There is an account with that email address or username.";
+    private static final String USER_NOT_FOUND = "User not found.";
     
     @Override
-    public Either<String, User> save(User user) {
-        Either<String, User> result;
-        if (!userRepository.existsByEmail(user.getUsername()) && !userRepository.existsByUsername(user.getUsername()))
-            result = Either.right(userRepository.save(user));
-        else {
-            String msg = COULD_NOT_SAVE_USER + user + " email or username are already registered";
-            result = Either.left(msg);
-        }        
-        return result;
+    public User save(UserDto userDto) {
+        if(!isValid(userDto.getEmail(), userDto.getUsername())) {
+            throw new UserAlreadyExistsException(USER_ALREADY_EXISTS);
+        }
+        return userRepository.save(mapper.map(userDto, User.class));
     }
 
     @Override
@@ -34,27 +35,33 @@ public class DomainUserService implements UserService {
     }
 
     @Override
-    public Either<String, User> findById(Long id) {
-        Either<String, User> result;
-        var userOptional = userRepository.findById(id);
-        result = userOptional.isPresent() ? Either.right(userOptional.get()) : Either.left(USER_NOT_FOUND + ":User id: " + id);        
-        return result;
-         
+    public User findById(Long id) {
+        return userRepository.findById(id)
+        .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND + " User id: " + id));
+    }
+    
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+        .orElseThrow( () -> new  UserNotFoundException(USER_NOT_FOUND + " email: " + email));
     }
 
     @Override
-    public Either<String, User> findByUsername(String username) {
-        Either<String, User> result;
-        var userOptional = userRepository.findByUsername(username);
-        result = userOptional.isPresent() ? Either.right(userOptional.get()) : Either.left(USER_NOT_FOUND + ":Username: " + username);        
-        return result;
+    public User save(RegistrationForm userForm) throws UserAlreadyExistsException {
+        if(!isValid(userForm.getEmail(), userForm.getUsername())) {
+            throw new UserAlreadyExistsException(USER_ALREADY_EXISTS);
+        }
+        return userRepository.save(mapper.map(userForm, User.class));
+    }
+
+    private boolean isValid(String email, String username) {
+        return !userRepository.existsByEmail(email) && !userRepository.existsByUsername(username);
     }
 
     @Override
-    public Either<String, User> findByEmail(String email) {
-        Either<String, User> result;
-        var userOptional = userRepository.findByEmail(email);
-        result = userOptional.isPresent() ? Either.right(userOptional.get()) : Either.left(USER_NOT_FOUND + ":User email: " + email);      
-        return result;
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+        .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND + " username: " + username));
     }
 }

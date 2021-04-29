@@ -18,8 +18,8 @@ public class UserServiceConfig {
         return new ModelMapper();
     }
     @Bean
-    public UserService userService(UserRepository userRepository) {
-        return new DomainUserService(userRepository);
+    public UserService userService(UserRepository userRepository, ModelMapper mapper) {
+        return new DomainUserService(userRepository, mapper);
     }
     @Bean
     public RoleService roleService(RoleRepository roleRepository) {
