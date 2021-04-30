@@ -1,4 +1,4 @@
-package org.unillanos.showcase.infrastructure.resources.controller.validation;
+package org.unillanos.showcase.infrastructure.resources.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

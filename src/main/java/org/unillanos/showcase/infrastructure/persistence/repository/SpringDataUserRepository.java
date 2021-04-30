@@ -1,7 +1,7 @@
 package org.unillanos.showcase.infrastructure.persistence.repository;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -32,12 +32,12 @@ public class SpringDataUserRepository implements UserRepository {
     }
 
     @Override
-    public boolean existsByUsername(String username) {
+    public Boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
 
     @Override
-    public boolean existsByEmail(String email) {
+    public Boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 
@@ -48,11 +48,11 @@ public class SpringDataUserRepository implements UserRepository {
     }
 
     @Override
-    public Set<User> findAll() {
+    public List<User> findAll() {
         return userRepository.findAll()
         .stream()
         .map(userEntity -> mapper.map(userEntity, User.class))
-        .collect(Collectors.toSet());
+        .collect(Collectors.toList());
     }
 
     @Override

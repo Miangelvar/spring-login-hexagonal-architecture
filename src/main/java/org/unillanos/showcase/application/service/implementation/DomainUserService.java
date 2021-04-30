@@ -1,21 +1,26 @@
 package org.unillanos.showcase.application.service.implementation;
 
-import java.util.Set;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.unillanos.showcase.application.exception.UserAlreadyExistsException;
 import org.unillanos.showcase.application.exception.UserNotFoundException;
+import org.unillanos.showcase.application.repository.RoleRepository;
 import org.unillanos.showcase.application.repository.UserRepository;
 import org.unillanos.showcase.application.service.service.UserService;
+import org.unillanos.showcase.domain.model.Role;
 import org.unillanos.showcase.domain.model.User;
 import org.unillanos.showcase.infrastructure.resources.dto.RegistrationForm;
 import org.unillanos.showcase.infrastructure.resources.dto.UserDto;
 
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
+@Deprecated
+@Slf4j
 @RequiredArgsConstructor
 public class DomainUserService implements UserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final ModelMapper mapper;
     
     private static final String USER_ALREADY_EXISTS = "There is an account with that email address or username.";
@@ -30,7 +35,7 @@ public class DomainUserService implements UserService {
     }
 
     @Override
-    public Set<User> findAll() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
@@ -52,6 +57,8 @@ public class DomainUserService implements UserService {
         if(!isValid(userForm.getEmail(), userForm.getUsername())) {
             throw new UserAlreadyExistsException(USER_ALREADY_EXISTS);
         }
+        User user = mapper.map(userForm, User.class);
+        user.setRole(createRoleIfNotFound("USER", "Common user."));
         return userRepository.save(mapper.map(userForm, User.class));
     }
 
@@ -63,5 +70,17 @@ public class DomainUserService implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
         .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND + " username: " + username));
+    }
+
+    private Role createRoleIfNotFound(String name, String description) {
+        return roleRepository.findByName(name)
+        .orElseGet(() -> {
+            log.info("Role " + name + "not found: Creating new role with name " + name + " and description " + description);
+            return roleRepository.save(
+                Role.builder()
+                .name(name)
+                .description(description)
+                .build());
+        });
     }
 }

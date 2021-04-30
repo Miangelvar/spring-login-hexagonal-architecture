@@ -1,9 +1,12 @@
 package org.unillanos.showcase.application.presenter;
 
-import org.unillanos.showcase.infrastructure.resources.dto.UserDto;
+import java.util.List;
+
+import org.unillanos.showcase.domain.model.User;
 import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
 
 public interface UserPresenter {
-    UserResponseModel prepareSuccessView (UserDto userDto);
+    UserResponseModel prepareSuccessView(User user);
     UserResponseModel prepareFailView (String error);
+    List<UserResponseModel> prepareSuccessView(List<User> users);
 }

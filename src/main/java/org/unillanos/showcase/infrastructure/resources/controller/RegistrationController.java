@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.unillanos.showcase.application.exception.UserAlreadyExistsException;
-import org.unillanos.showcase.application.service.service.UserService;
-import org.unillanos.showcase.domain.model.User;
-import org.unillanos.showcase.infrastructure.resources.dto.RegistrationForm;
+import org.unillanos.showcase.application.service.service.UserInteractor;
+import org.unillanos.showcase.infrastructure.resources.dto.UserRegistrationForm;
+import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,22 +24,22 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class RegistrationController {
     @Autowired
-    private final UserService userService;
+    private final UserInteractor userService;
     private static final String REGISTRATION_VIEW = "registration";
     private static final String REGISTER_SUCCESS = "User successfully registered.";
 
     @GetMapping(value = "/register")
     public String showRegistrationForm(Model model) {
-        var userForm = new RegistrationForm();
+        var userForm = new UserRegistrationForm();
         model.addAttribute("user", userForm);
         return REGISTRATION_VIEW;
     }
 
     @PostMapping(value = "/register")
-    public String registerUserAccount(@ModelAttribute("user") @Valid RegistrationForm userForm, BindingResult result, Model model) {
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationForm userForm, BindingResult result, Model model) {
         if (!result.hasErrors()) {
             try {
-                User registeredUser = userService.save(userForm);
+                UserResponseModel registeredUser = userService.save(userForm);
                 log.info(REGISTER_SUCCESS + " " + registeredUser);
             } catch (UserAlreadyExistsException e) {
                 log.error(e.getMessage());

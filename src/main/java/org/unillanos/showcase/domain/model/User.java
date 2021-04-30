@@ -1,5 +1,7 @@
 package org.unillanos.showcase.domain.model;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +24,5 @@ public class User{
     private Role role;
     @Builder.Default
     private boolean active = true;
+    private LocalDateTime createdDate;
 }

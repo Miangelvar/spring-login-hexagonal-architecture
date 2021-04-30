@@ -22,7 +22,6 @@ public class SetupDatabaseLoader implements ApplicationListener<ContextRefreshed
     private final SpringDataUserRepository userRepository;
     private final SpringDataRoleRepository roleRepository;
 
-
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -30,11 +29,11 @@ public class SetupDatabaseLoader implements ApplicationListener<ContextRefreshed
             return;
 
         createUserIfNotFound("admin", "admin@example.com", "admin",
-                createRoleIfNotFound("Admin", "System administrator"));
+                createRoleIfNotFound("ADMIN", "System administrator"));
 
-                // createRoleIfNotFound("ADMIN", "System administrator")
-                //         createRoleIfNotFound("TECHNICIAN", "Installs or removes electricity meters"), createRoleIfNotFound("WALKER", "Walker"),
-                //         createRoleIfNotFound("AUXILIARY", "Extra help for technicians")).collect(Collectors.toSet()));
+        createRoleIfNotFound("TECHNICIAN", "Installs or removes electricity meters"); 
+        createRoleIfNotFound("WALKER", "Walker");
+        createRoleIfNotFound("AUXILIARY", "Extra help for technicians");
 
         alreadySetup = true;
     }
@@ -51,8 +50,8 @@ public class SetupDatabaseLoader implements ApplicationListener<ContextRefreshed
     public User createUserIfNotFound(String username, String email, String password, Role role) {
         return userRepository.findByUsername(username).orElseGet(() -> {
             log.info("User not found: Creating new user with username " + username);
-            return userRepository.save(User.builder().username(username).email(email).password(password)
-                    .role(role).build());
+            return userRepository
+                    .save(User.builder().username(username).email(email).password(password).role(role).build());
         });
     }
 }

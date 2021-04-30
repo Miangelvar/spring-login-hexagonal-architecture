@@ -8,6 +8,7 @@ import org.unillanos.showcase.infrastructure.resources.dto.UserDto;
 
 import lombok.RequiredArgsConstructor;
 
+@Deprecated
 @Component
 @RequiredArgsConstructor
 public class UserDtoMapperImpl implements UserDtoMapper {
