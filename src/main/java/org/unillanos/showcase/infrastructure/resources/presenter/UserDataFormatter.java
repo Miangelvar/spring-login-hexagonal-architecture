@@ -1,7 +1,7 @@
 package org.unillanos.showcase.infrastructure.resources.presenter;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,17 +40,14 @@ public class UserDataFormatter implements UserPresenter {
 
     @Override
     public List<UserResponseModel> prepareSuccessView(List<User> users) {
-        List<UserResponseModel> responses = new ArrayList<>();
-        UserResponseModel userResponse;
-        log.info("Presenter: " + users.toString());
-        for (User user : users) {
-            userResponse = mapper.map(user, UserResponseModel.class);
-            userResponse.setLink(WebMvcLinkBuilder.linkTo(UserController.class).slash(userResponse.getId()).withSelfRel());
-            log.info("Mapped user to Response: " + userResponse.toString());
-            responses.add(userResponse);
-        }    
-        log.info("Response list size: " + responses.size());
-        return responses;
+
+        return users.stream().map(user -> {
+            var userResponse = mapper.map(user, UserResponseModel.class);
+            userResponse
+                    .setLink(WebMvcLinkBuilder.linkTo(UserController.class).slash(userResponse.getId()).withSelfRel());
+            return userResponse;
+
+        }).collect(Collectors.toList());
     }
 
 }

@@ -20,10 +20,9 @@ public class UserResponseModel extends RepresentationModel<UserResponseModel> {
     private Long id;
     private String username;
     private String email;
-    private String password;
     private boolean active;
     private String createdDate;
     private String roleName;
-    Link link;
+    private Link link;
 
 }
