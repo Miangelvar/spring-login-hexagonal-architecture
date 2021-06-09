@@ -38,6 +38,7 @@ public class RegistrationController {
     @PostMapping(value = "/register")
     public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationForm userForm, BindingResult result, Model model) {
         if (!result.hasErrors()) {
+            
             try {
                 UserResponseModel registeredUser = userService.save(userForm);
                 log.info(REGISTER_SUCCESS + " " + registeredUser);

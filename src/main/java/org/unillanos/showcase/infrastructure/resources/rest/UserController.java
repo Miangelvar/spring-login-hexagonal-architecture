@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,18 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import org.unillanos.showcase.application.exception.UserAlreadyExistsException;
 import org.unillanos.showcase.application.exception.UserNotFoundException;
 import org.unillanos.showcase.application.service.service.UserInteractor;
 import org.unillanos.showcase.infrastructure.resources.dto.UserRegistrationForm;
 import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-
-
-@Slf4j
 @RestController
 @RequestMapping(("api/users"))
 @RequiredArgsConstructor
@@ -42,27 +35,17 @@ public class UserController {
     private static final String USER_FOUND = "User was found.";
 
     @PostMapping
-    public ResponseEntity<UserResponseModel> saveUser(@RequestBody @Valid UserRegistrationForm userForm, BindingResult result) {                
+    public ResponseEntity<UserResponseModel> saveUser(@RequestBody @Valid UserRegistrationForm userForm) {
         UserResponseModel response = null;
-        ResponseEntity <UserResponseModel> responseEntity;
-        if (result.hasErrors()) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_ACCEPTABLE ,
-                result.toString()
-                );
-        }
-        try {
-            //TODO: Validation for user existence not working
-             response = service.save(userForm);
-        } catch (UserAlreadyExistsException e) {
-            log.error(e.getMessage(), e);
-            
-        }
-        
-        return ResponseEntity.created(response.getLink().toUri()).body(response);      
+        ResponseEntity<UserResponseModel> responseEntity = null;
+            // TODO: Validation for user existence not working
+            response = service.save(userForm);
+            responseEntity = ResponseEntity.created(response.getLink().toUri()).body(response);        
+
+        return responseEntity;
     }
 
-    @GetMapping(value="/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<UserResponseModel> findById(@PathVariable Long id) {
         ResponseEntity<UserResponseModel> response = null;
         UserResponseModel userResponse;
@@ -74,11 +57,10 @@ public class UserController {
         }
         return response;
     }
-    
-    
+
     @GetMapping
-    public ResponseEntity<List<UserResponseModel>> getUsers() {        
+    public ResponseEntity<List<UserResponseModel>> getUsers() {
         return ResponseEntity.ok().body(service.getUsers());
     }
-    
+
 }

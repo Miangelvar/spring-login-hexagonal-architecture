@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.unillanos.showcase.application.exception.UserAlreadyExistsException;
 import org.unillanos.showcase.application.exception.UserNotFoundException;
 import org.unillanos.showcase.application.presenter.UserPresenter;
 import org.unillanos.showcase.application.repository.RoleRepository;
@@ -30,7 +29,7 @@ public class DomainUserInteractor implements UserInteractor {
     @Override
     public UserResponseModel save(UserRegistrationForm userForm) {
         if (!isValid(userForm.getEmail(), userForm.getUsername())) {
-            throw new UserAlreadyExistsException("There is an account with that email or username");
+            return userPresenter.prepareFailView("Theres already an user account with that username or email address.");
         }
         User newUser = mapper.map(userForm, User.class);
         newUser.setCreatedDate(LocalDateTime.now());
