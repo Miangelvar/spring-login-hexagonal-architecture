@@ -8,8 +8,8 @@ import org.unillanos.showcase.infrastructure.resources.dto.RegistrationForm;
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, RegistrationForm> {
 
     @Override
-    public boolean isValid(RegistrationForm value, ConstraintValidatorContext context) {
-        return value.getPassword().equals(value.getPasswordConfirm());
+    public boolean isValid(RegistrationForm formDto, ConstraintValidatorContext context) {
+        return formDto.getPassword().equals(formDto.getPasswordConfirm());
 
     }
 
