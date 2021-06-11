@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.unillanos.showcase.infrastructure.resources.dto.RegistrationForm;
 
-public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, RegistrationForm> {
+public class FieldMatchValidator implements ConstraintValidator<FieldMatch, RegistrationForm> {
 
     @Override
     public boolean isValid(RegistrationForm formDto, ConstraintValidatorContext context) {

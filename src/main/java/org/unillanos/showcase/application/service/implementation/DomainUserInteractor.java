@@ -29,9 +29,10 @@ public class DomainUserInteractor implements UserInteractor {
     @Override
     public UserResponseModel save(UserRegistrationForm userForm) {
         if (!isValid(userForm.getEmail(), userForm.getUsername())) {
-            return userPresenter.prepareFailView("Theres already an user account with that username or email address.");
+            return userPresenter.prepareFailView("There's already an user account with that username or email address.");
         }
         User newUser = mapper.map(userForm, User.class);
+        newUser.setActive(true);
         newUser.setCreatedDate(LocalDateTime.now());
         newUser.setRole(createRoleIfNotFound("USER", "Common user."));        
         return userPresenter.prepareSuccessView(userRepository.save(newUser));

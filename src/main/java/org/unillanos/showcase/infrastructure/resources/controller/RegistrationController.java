@@ -44,6 +44,7 @@ public class RegistrationController {
                 log.info(REGISTER_SUCCESS + " " + registeredUser);
             } catch (UserAlreadyExistsException e) {
                 log.error(e.getMessage());
+                
             }
             return "redirect:/api/users";
             

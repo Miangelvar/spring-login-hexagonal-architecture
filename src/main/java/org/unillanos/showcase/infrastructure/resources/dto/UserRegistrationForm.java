@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import org.unillanos.showcase.infrastructure.resources.validation.PasswordMatches;
+import org.unillanos.showcase.infrastructure.resources.validation.FieldMatch;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@PasswordMatches
+@FieldMatch
 public class UserRegistrationForm implements RegistrationForm, Serializable {
     @NotBlank
     private String username;

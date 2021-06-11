@@ -32,6 +32,8 @@ public class UserEntity {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column
+    private boolean active;
     private LocalDateTime createdDate;
     @ManyToOne
     private RoleEntity role;

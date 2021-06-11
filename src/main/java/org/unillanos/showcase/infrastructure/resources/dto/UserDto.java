@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import org.unillanos.showcase.infrastructure.resources.validation.PasswordMatches;
+import org.unillanos.showcase.infrastructure.resources.validation.FieldMatch;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +21,7 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@PasswordMatches
+@FieldMatch
 public class UserDto implements Serializable, RegistrationForm {
     private Long id;
     @NotBlank

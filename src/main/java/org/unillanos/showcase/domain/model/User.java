@@ -22,7 +22,6 @@ public class User{
     private String email;
     private String password;
     private Role role;
-    @Builder.Default
-    private boolean active = true;
+    private boolean active;
     private LocalDateTime createdDate;
 }
