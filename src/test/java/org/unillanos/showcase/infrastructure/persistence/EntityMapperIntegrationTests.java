@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.unillanos.showcase.domain.model.User;
+import org.unillanos.showcase.domain.User;
 import org.unillanos.showcase.infrastructure.persistence.jpa.entity.UserEntity;
 import org.unillanos.showcase.infrastructure.persistence.mapper.UserEntityMapper;
 import org.unillanos.showcase.infrastructure.persistence.mapper.UserEntityMapperImpl;

@@ -1,9 +1,7 @@
-package org.unillanos.showcase.application.repository;
+package org.unillanos.showcase.domain;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.unillanos.showcase.domain.model.User;
 
 public interface UserRepository {
     List<User> findAll();

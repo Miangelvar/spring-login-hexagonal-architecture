@@ -4,12 +4,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.unillanos.showcase.application.presenter.UserPresenter;
-import org.unillanos.showcase.application.repository.RoleRepository;
-import org.unillanos.showcase.application.repository.UserRepository;
 import org.unillanos.showcase.application.service.implementation.DomainRoleService;
 import org.unillanos.showcase.application.service.implementation.DomainUserInteractor;
 import org.unillanos.showcase.application.service.service.RoleService;
 import org.unillanos.showcase.application.service.service.UserInteractor;
+import org.unillanos.showcase.domain.RoleRepository;
+import org.unillanos.showcase.domain.UserRepository;
 
 @Configuration
 public class UserServiceConfig {

@@ -5,8 +5,8 @@ import javax.transaction.Transactional;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.unillanos.showcase.domain.model.Role;
-import org.unillanos.showcase.domain.model.User;
+import org.unillanos.showcase.domain.Role;
+import org.unillanos.showcase.domain.User;
 import org.unillanos.showcase.infrastructure.persistence.repository.SpringDataRoleRepository;
 import org.unillanos.showcase.infrastructure.persistence.repository.SpringDataUserRepository;
 

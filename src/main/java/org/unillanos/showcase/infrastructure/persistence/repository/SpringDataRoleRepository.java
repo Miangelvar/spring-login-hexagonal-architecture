@@ -5,8 +5,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.unillanos.showcase.application.repository.RoleRepository;
-import org.unillanos.showcase.domain.model.Role;
+import org.unillanos.showcase.domain.Role;
+import org.unillanos.showcase.domain.RoleRepository;
 import org.unillanos.showcase.infrastructure.persistence.jpa.entity.RoleEntity;
 import org.unillanos.showcase.infrastructure.persistence.jpa.repository.SpringDataRoleEntityJpaRepository;
 import org.unillanos.showcase.infrastructure.utils.mapper.ObjectMapperUtils;

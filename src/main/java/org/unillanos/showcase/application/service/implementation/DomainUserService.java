@@ -5,11 +5,11 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.unillanos.showcase.application.exception.UserAlreadyExistsException;
 import org.unillanos.showcase.application.exception.UserNotFoundException;
-import org.unillanos.showcase.application.repository.RoleRepository;
-import org.unillanos.showcase.application.repository.UserRepository;
 import org.unillanos.showcase.application.service.service.UserService;
-import org.unillanos.showcase.domain.model.Role;
-import org.unillanos.showcase.domain.model.User;
+import org.unillanos.showcase.domain.Role;
+import org.unillanos.showcase.domain.RoleRepository;
+import org.unillanos.showcase.domain.User;
+import org.unillanos.showcase.domain.UserRepository;
 import org.unillanos.showcase.infrastructure.resources.dto.RegistrationForm;
 import org.unillanos.showcase.infrastructure.resources.dto.UserDto;
 
@@ -83,4 +83,14 @@ public class DomainUserService implements UserService {
                 .build());
         });
     }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+    
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+
 }

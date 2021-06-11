@@ -2,9 +2,9 @@ package org.unillanos.showcase.application.service.implementation;
 
 import java.util.Set;
 
-import org.unillanos.showcase.application.repository.RoleRepository;
 import org.unillanos.showcase.application.service.service.RoleService;
-import org.unillanos.showcase.domain.model.Role;
+import org.unillanos.showcase.domain.Role;
+import org.unillanos.showcase.domain.RoleRepository;
 
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;

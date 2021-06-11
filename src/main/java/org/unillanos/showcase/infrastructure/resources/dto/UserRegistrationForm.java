@@ -18,18 +18,18 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldMatch
+@FieldMatch(message = "Passwords don't match")
 public class UserRegistrationForm implements RegistrationForm, Serializable {
-    @NotBlank
+    @NotBlank(message = "Username is mandatory")
     private String username;
     
-    @NotBlank
+    @NotBlank(message = "Email is mandatory")
     @Email
     private String email;
     
-    @NotBlank
+    @NotBlank(message = "Password is mandatory")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "Password confirmation is mandatory")
     private String passwordConfirm;
 }

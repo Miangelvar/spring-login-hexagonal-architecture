@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.unillanos.showcase.application.service.service.RoleService;
-import org.unillanos.showcase.domain.model.Role;
+import org.unillanos.showcase.domain.Role;
 import org.unillanos.showcase.infrastructure.resources.dto.RoleDto;
 import org.unillanos.showcase.infrastructure.utils.mapper.ObjectMapperUtils;
 

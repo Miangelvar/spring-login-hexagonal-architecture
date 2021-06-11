@@ -1,4 +1,4 @@
-package org.unillanos.showcase.domain.model;
+package org.unillanos.showcase.domain;
 
 import java.util.Set;
 

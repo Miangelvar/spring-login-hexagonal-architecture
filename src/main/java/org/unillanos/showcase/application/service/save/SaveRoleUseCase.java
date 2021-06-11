@@ -1,6 +1,6 @@
 package org.unillanos.showcase.application.service.save;
 
-import org.unillanos.showcase.domain.model.Role;
+import org.unillanos.showcase.domain.Role;
 
 import io.vavr.control.Either;
 

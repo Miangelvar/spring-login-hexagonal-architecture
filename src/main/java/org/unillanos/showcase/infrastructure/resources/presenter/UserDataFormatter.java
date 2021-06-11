@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 import org.unillanos.showcase.application.presenter.UserPresenter;
-import org.unillanos.showcase.domain.model.User;
+import org.unillanos.showcase.domain.User;
 import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
 import org.unillanos.showcase.infrastructure.resources.rest.UserController;
 

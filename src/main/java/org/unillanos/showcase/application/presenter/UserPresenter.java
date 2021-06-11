@@ -2,7 +2,7 @@ package org.unillanos.showcase.application.presenter;
 
 import java.util.List;
 
-import org.unillanos.showcase.domain.model.User;
+import org.unillanos.showcase.domain.User;
 import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
 
 public interface UserPresenter {

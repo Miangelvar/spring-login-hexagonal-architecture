@@ -6,11 +6,11 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.unillanos.showcase.application.exception.UserNotFoundException;
 import org.unillanos.showcase.application.presenter.UserPresenter;
-import org.unillanos.showcase.application.repository.RoleRepository;
-import org.unillanos.showcase.application.repository.UserRepository;
 import org.unillanos.showcase.application.service.service.UserInteractor;
-import org.unillanos.showcase.domain.model.Role;
-import org.unillanos.showcase.domain.model.User;
+import org.unillanos.showcase.domain.Role;
+import org.unillanos.showcase.domain.RoleRepository;
+import org.unillanos.showcase.domain.User;
+import org.unillanos.showcase.domain.UserRepository;
 import org.unillanos.showcase.infrastructure.resources.dto.UserRegistrationForm;
 import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
 
@@ -75,6 +75,12 @@ public class DomainUserInteractor implements UserInteractor {
         return userPresenter.prepareSuccessView(user);                  
     }
 
-    
-    
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 }

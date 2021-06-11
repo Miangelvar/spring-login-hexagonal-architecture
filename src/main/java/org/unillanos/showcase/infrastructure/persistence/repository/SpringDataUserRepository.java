@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.unillanos.showcase.application.repository.UserRepository;
-import org.unillanos.showcase.domain.model.User;
+import org.unillanos.showcase.domain.User;
+import org.unillanos.showcase.domain.UserRepository;
 import org.unillanos.showcase.infrastructure.persistence.jpa.entity.UserEntity;
 import org.unillanos.showcase.infrastructure.persistence.jpa.repository.SpringDataUserEntityJpaRepository;
 

@@ -1,9 +1,7 @@
-package org.unillanos.showcase.application.repository;
+package org.unillanos.showcase.domain;
 
 import java.util.Optional;
 import java.util.Set;
-
-import org.unillanos.showcase.domain.model.Role;
 
 public interface RoleRepository {
     Optional<Role> findByName(String name);
