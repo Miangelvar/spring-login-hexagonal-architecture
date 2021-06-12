@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 import org.unillanos.showcase.application.presenter.UserPresenter;
-import org.unillanos.showcase.domain.User;
 import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
 import org.unillanos.showcase.infrastructure.resources.rest.UserController;
 
@@ -25,11 +24,10 @@ public class UserDataFormatter implements UserPresenter {
     private final ModelMapper mapper;
 
     @Override
-    public UserResponseModel prepareSuccessView(final User user) {
-        UserResponseModel response = mapper.map(user, UserResponseModel.class);
-        response.setLink(WebMvcLinkBuilder.linkTo(UserController.class).slash(response.getId()).withSelfRel());
-        log.info("Saved user: " + response);
-        return response;
+    public UserResponseModel prepareSuccessView(UserResponseModel userResponseModel) {
+        userResponseModel.setLink(WebMvcLinkBuilder.linkTo(UserController.class).slash(userResponseModel.getId()).withSelfRel());
+        log.info("Saved user: " + userResponseModel);
+        return userResponseModel;
     }
 
     @Override
@@ -39,15 +37,13 @@ public class UserDataFormatter implements UserPresenter {
     }
 
     @Override
-    public List<UserResponseModel> prepareSuccessView(List<User> users) {
-
-        return users.stream().map(user -> {
-            var userResponse = mapper.map(user, UserResponseModel.class);
-            userResponse
-                    .setLink(WebMvcLinkBuilder.linkTo(UserController.class).slash(userResponse.getId()).withSelfRel());
-            return userResponse;
-
-        }).collect(Collectors.toList());
+    public List<UserResponseModel> prepareSuccessView(List<UserResponseModel> users) {
+        return users.stream()
+        .map(user ->  {
+            user.setLink(WebMvcLinkBuilder.linkTo(UserController.class).slash(user.getId()).withSelfRel());
+            return user;
+        })
+        .collect(Collectors.toList());
     }
 
 }
