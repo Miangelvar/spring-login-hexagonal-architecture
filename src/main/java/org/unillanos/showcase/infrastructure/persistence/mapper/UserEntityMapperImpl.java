@@ -5,7 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.unillanos.showcase.domain.User;
-import org.unillanos.showcase.infrastructure.persistence.jpa.entity.UserEntity;
+import org.unillanos.showcase.infrastructure.persistence.jpa.UserEntity;
 
 import lombok.RequiredArgsConstructor;
 

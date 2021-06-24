@@ -3,8 +3,6 @@ package org.unillanos.showcase.infrastructure.resources.presenter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -13,15 +11,11 @@ import org.unillanos.showcase.application.presenter.UserPresenter;
 import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
 import org.unillanos.showcase.infrastructure.resources.rest.UserController;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class UserDataFormatter implements UserPresenter {
-    @Autowired
-    private final ModelMapper mapper;
 
     @Override
     public UserResponseModel prepareSuccessView(UserResponseModel userResponseModel) {

@@ -1,9 +1,9 @@
 package org.unillanos.showcase.application.service.retrieve;
 
-import java.util.Set;
+import java.util.List;
 
 import org.unillanos.showcase.domain.Role;
 
 public interface GetRolesUseCase {
-    Set<Role> findAll();
+    List<Role> findAll();
 }

@@ -1,14 +1,14 @@
 package org.unillanos.showcase.infrastructure.persistence.repository;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.unillanos.showcase.domain.Role;
 import org.unillanos.showcase.domain.RoleRepository;
-import org.unillanos.showcase.infrastructure.persistence.jpa.entity.RoleEntity;
-import org.unillanos.showcase.infrastructure.persistence.jpa.repository.SpringDataRoleEntityJpaRepository;
+import org.unillanos.showcase.infrastructure.persistence.jpa.RoleEntity;
+import org.unillanos.showcase.infrastructure.persistence.jpa.SpringDataRoleJpaRepository;
 import org.unillanos.showcase.infrastructure.utils.mapper.ObjectMapperUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -18,13 +18,13 @@ import lombok.RequiredArgsConstructor;
 public class SpringDataRoleRepository implements RoleRepository {
 
     @Autowired
-    private final SpringDataRoleEntityJpaRepository roleRepository;
+    private final SpringDataRoleJpaRepository roleRepository;
 
     @Autowired
     private final ObjectMapperUtils mapper;
 
     @Override
-    public Set<Role> findAll() {
+    public List<Role> findAll() {
         return mapper.mapAll(roleRepository.findAll(), Role.class);
     }
 

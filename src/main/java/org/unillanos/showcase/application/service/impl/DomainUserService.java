@@ -1,4 +1,4 @@
-package org.unillanos.showcase.application.service.implementation;
+package org.unillanos.showcase.application.service.impl;
 
 import java.util.List;
 

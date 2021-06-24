@@ -10,8 +10,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.unillanos.showcase.application.exception.UserAlreadyExistsException;
+import org.unillanos.showcase.application.save.UserCreator;
 import org.unillanos.showcase.application.service.service.UserInteractor;
 import org.unillanos.showcase.infrastructure.resources.dto.UserRegistrationForm;
 import org.unillanos.showcase.infrastructure.resources.dto.UserResponseModel;
@@ -23,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 public class RegistrationController {
+    @Autowired
+    private final UserCreator creator;
     @Autowired
     private final UserInteractor userService;
     private static final String REGISTRATION_VIEW = "signup/signup";
@@ -42,19 +44,17 @@ public class RegistrationController {
         }
         if(userService.existsByUsername(userForm.getUsername())) {
             result.addError(new FieldError("userForm", "username", "This username is already registered."));
-        }
-                    
+        }                    
         if (result.hasErrors()) {
             result.getAllErrors()
             .stream().
             forEach(error -> log.error(error.getDefaultMessage()));
             return REGISTRATION_VIEW;
-        }
-        
+        }        
 
         else {
             try {
-                UserResponseModel registeredUser = userService.save(userForm);
+                UserResponseModel registeredUser = creator.save(userForm);
                 log.info(REGISTER_SUCCESS + " " + registeredUser);
             } catch (UserAlreadyExistsException e) {
                 log.error(e.getMessage());

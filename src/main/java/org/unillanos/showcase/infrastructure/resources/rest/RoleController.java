@@ -1,6 +1,6 @@
 package org.unillanos.showcase.infrastructure.resources.rest;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -32,7 +32,7 @@ public class RoleController {
     private final ObjectMapperUtils mapper;
 
     @GetMapping
-    public ResponseEntity<Set<RoleDto>> findAll() {
+    public ResponseEntity<List<RoleDto>> findAll() {
         var roles = roleService.findAll();
         return ResponseEntity.ok(mapper.mapAll(roles, RoleDto.class));
 

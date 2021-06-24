@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.unillanos.showcase.domain.Role;
 import org.unillanos.showcase.domain.User;
-import org.unillanos.showcase.infrastructure.persistence.jpa.entity.RoleEntity;
+import org.unillanos.showcase.infrastructure.persistence.jpa.RoleEntity;
 import org.unillanos.showcase.infrastructure.resources.dto.RoleDto;
 import org.unillanos.showcase.infrastructure.resources.dto.UserDto;
 

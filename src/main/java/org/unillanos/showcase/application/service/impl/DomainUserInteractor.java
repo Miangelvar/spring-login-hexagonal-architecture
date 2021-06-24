@@ -1,4 +1,4 @@
-package org.unillanos.showcase.application.service.implementation;
+package org.unillanos.showcase.application.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,10 +29,16 @@ public class DomainUserInteractor implements UserInteractor {
 
     @Override
     public UserResponseModel save(UserRegistrationForm userForm) {
-        if (!isValid(userForm.getEmail(), userForm.getUsername())) {
-            return userPresenter.prepareFailView("There's already an user account with that username or email address.");
-        }
+        // if (!isValid(userForm.getEmail(), userForm.getUsername())) {
+        //     return userPresenter.prepareFailView("There's already an user account with that username or email address.");
+        // }
+        
         var newUser = mapper.map(userForm, User.class);
+        // newUser.builder()
+        // .active(true)
+        // .createdDate(LocalDateTime.now())
+        // .role(createRoleIfNotFound("USER", "Common user."))
+        // .build();
         newUser.setActive(true);
         newUser.setCreatedDate(LocalDateTime.now());
         newUser.setRole(createRoleIfNotFound("USER", "Common user."));
@@ -79,5 +85,11 @@ public class DomainUserInteractor implements UserInteractor {
     @Override
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.delete(id);
+        
     }
 }

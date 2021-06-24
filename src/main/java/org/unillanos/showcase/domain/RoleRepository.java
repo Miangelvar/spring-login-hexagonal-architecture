@@ -1,11 +1,11 @@
 package org.unillanos.showcase.domain;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface RoleRepository {
     Optional<Role> findByName(String name);
-    Set<Role> findAll();
+    List<Role> findAll();
     Role save(Role role);
     boolean existsByName(String name);
 }

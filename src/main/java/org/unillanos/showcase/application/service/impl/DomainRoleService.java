@@ -1,6 +1,6 @@
-package org.unillanos.showcase.application.service.implementation;
+package org.unillanos.showcase.application.service.impl;
 
-import java.util.Set;
+import java.util.List;
 
 import org.unillanos.showcase.application.service.service.RoleService;
 import org.unillanos.showcase.domain.Role;
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
     private final RoleRepository roleRepository;
 
     @Override
-    public Set<Role> findAll() {
+    public List<Role> findAll() {
         return roleRepository.findAll();
     }
 

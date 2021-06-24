@@ -1,4 +1,4 @@
-package org.unillanos.showcase.infrastructure.persistence.jpa.entity;
+package org.unillanos.showcase.infrastructure.persistence.jpa;
 
 import java.util.Set;
 

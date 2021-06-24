@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.unillanos.showcase.domain.User;
 import org.unillanos.showcase.domain.UserRepository;
-import org.unillanos.showcase.infrastructure.persistence.jpa.entity.UserEntity;
-import org.unillanos.showcase.infrastructure.persistence.jpa.repository.SpringDataUserEntityJpaRepository;
+import org.unillanos.showcase.infrastructure.persistence.jpa.SpringDataUserJpaRepository;
+import org.unillanos.showcase.infrastructure.persistence.jpa.UserEntity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class SpringDataUserRepository implements UserRepository {
 
     @Autowired
-    private final SpringDataUserEntityJpaRepository userRepository;
+    private final SpringDataUserJpaRepository userRepository;
     @Autowired
     private final ModelMapper mapper;
 
@@ -32,12 +32,12 @@ public class SpringDataUserRepository implements UserRepository {
     }
 
     @Override
-    public Boolean existsByUsername(String username) {
+    public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
 
     @Override
-    public Boolean existsByEmail(String email) {
+    public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 
@@ -67,6 +67,12 @@ public class SpringDataUserRepository implements UserRepository {
         return userRepository.findByEmail(email)
         .map(userEntity -> Optional.of(mapper.map(userEntity, User.class)))
         .orElseGet(Optional::empty);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+        
     }
     
 }

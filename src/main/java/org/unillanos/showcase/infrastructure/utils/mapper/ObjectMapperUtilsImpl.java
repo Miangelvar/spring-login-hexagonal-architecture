@@ -1,7 +1,7 @@
 package org.unillanos.showcase.infrastructure.utils.mapper;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -22,10 +22,10 @@ public class ObjectMapperUtilsImpl implements ObjectMapperUtils {
     }
 
     @Override
-    public <T, D> Set<D> mapAll(Collection<T> sourceList, Class<D> destinationType) {
+    public <T, D> List<D> mapAll(Collection<T> sourceList, Class<D> destinationType) {
         return sourceList.stream()
         .map(source -> mapper.map(source, destinationType))
-        .collect(Collectors.toSet());
+        .collect(Collectors.toList());
     }
     
 }
